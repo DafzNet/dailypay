@@ -1,4 +1,4 @@
-import 'package:dailypay/widgets/widgets.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/constants/constants.dart';
@@ -7,9 +7,11 @@ class Onboarder extends StatefulWidget {
   final String? title;
   final String? subtitle;
   final bool buttons;
+  final String? bgImage;
 
   const Onboarder({
     this.title,
+    this.bgImage,
     this.subtitle,
     this.buttons = false,
     super.key});
@@ -31,7 +33,7 @@ class _OnboarderState extends State<Onboarder> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height-20,
             child: Image.asset(
-              onboardingOne,
+              widget.bgImage??onboardingOne,
 
               fit: BoxFit.fitWidth,
             ),
@@ -47,8 +49,8 @@ class _OnboarderState extends State<Onboarder> {
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                     stops: [
-                      .2,
-                      .8
+                      .05,
+                      .7
                     ],
                     colors: [
                       Colors.transparent,
@@ -94,7 +96,7 @@ class _OnboarderState extends State<Onboarder> {
                       if(widget.subtitle != null)...[
                       Text(
                         widget.subtitle!,
-                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 30)
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14)
                       )],
 
                     ],                  
@@ -117,36 +119,27 @@ class _OnboarderState extends State<Onboarder> {
                   )
                 ),
 
-                child: Padding(
+                child: const Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      TextInputField('hint'),
-                      if(widget.buttons)...[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          RoundedIconButton(),
 
-                          RoundedIconButton(),
+                      Row(),
+                  
+                      // if(widget.buttons)...[
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //   children: [
+                      //     RoundedIconButton(),
 
-                          RoundedIconButton()
-                        ],
-                      ),],
+                      //     RoundedIconButton(),
 
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: DefaultButton(
-                          label: 'Sign Up',
-                          color: Colors.white,
-                        ),
-                      ),
+                      //     RoundedIconButton()
+                      //   ],
+                      // ),],
 
-                      DefaultButton(
-                        label: 'Log in',
-                      ),
-
+                  
                       SizedBox(height: 15,)
                     ],
                   ),

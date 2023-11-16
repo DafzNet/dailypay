@@ -27,8 +27,15 @@ class _DefaultButtonState extends State<DefaultButton> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: null, 
-      child: Text(
+      onPressed: widget.onTap,
+
+      style: TextButton.styleFrom(
+        backgroundColor: widget.color??dailiPayColor,
+        fixedSize: widget.size?? Size(MediaQuery.of(context).size.width, 50),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+
+      child:  Text(
         widget.label,
 
         style: TextStyle(
@@ -37,10 +44,7 @@ class _DefaultButtonState extends State<DefaultButton> {
         ),
       ),
 
-      style: TextButton.styleFrom(
-        backgroundColor: widget.color??dailiPayColor,
-        fixedSize: widget.size?? Size(MediaQuery.of(context).size.width, 50)
-      ),
+      
     );
   }
 }

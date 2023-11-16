@@ -1,7 +1,10 @@
+import 'package:dailypay/screens/auth/login.dart';
 import 'package:dailypay/screens/onboarding/onboarding.dart';
-import 'package:dailypay/utils/constants/colors.dart';
+import 'package:dailypay/utils/constants/constants.dart';
+import 'package:dailypay/widgets/widgets.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class OnboardPager extends StatefulWidget {
   const OnboardPager({super.key});
@@ -19,23 +22,76 @@ class _OnboardPagerState extends State<OnboardPager> {
       body: Column(
         children: [
           Expanded(
-            child: PageView(
-              onPageChanged: (value) {
-                setState(() {
-                  _pos = value;
-                });
-              },
+            child: Stack(
               children: [
-                Onboarder(
+                PageView(
+                  controller: controller,
+
+                  onPageChanged: (value) {
+                    setState(() {
+                      _pos = value;
+                    });
+                  },
+                  children: const [
+                    Onboarder(
+                      bgImage: onboardingOne,
+
+                      title: 'Stressless Daily\nPayment',
+                      subtitle: 'T-fair || Food || more',
+                    ),
           
+                    Onboarder(
+                      bgImage: onboardingTwo,
+
+                      title: 'Free Daily\nTransfers',
+                      subtitle: 'No charges for tranfers',
+                    ),
+          
+                    Onboarder(
+                      bgImage: onboardingThree,
+
+                      title: 'Don\'t ever get\ntramped again' ,
+                      subtitle: 'Dailypay everywhere you go',
+                    )
+                  ],
                 ),
-          
-                Onboarder(
-          
-                ),
-          
-                Onboarder(
-                  
+
+                Padding(
+                  padding: const EdgeInsets.all(bodyPadding),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      DefaultButton(
+                        label: 'Sign Up',
+                        color: Colors.white,
+                
+                        onTap: (){},
+                      ),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+                
+                      DefaultButton(
+                          label: 'Log in',
+
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child: Login(),
+                                type: PageTransitionType.rightToLeft
+                              )
+                            );
+                          },
+                        ),
+
+                        SizedBox(
+                          height: 10,
+                        )
+                
+                    ],
+                  ),
                 )
               ],
             ),
@@ -51,10 +107,9 @@ class _OnboardPagerState extends State<OnboardPager> {
                   activeColor: dailiPayColor
                 ),
 
-                onTap: (position) {
-                  controller.jumpToPage(position-1);
-                  
-                  _pos = position;
+                onTap: (pos) {
+                  controller.jumpToPage(pos);
+                  _pos = pos;
 
                   setState(() {
                     
