@@ -1,4 +1,5 @@
 import 'package:dailypay/screens/auth/login.dart';
+import 'package:dailypay/screens/auth/signup/signup.dart';
 import 'package:dailypay/screens/onboarding/onboarding.dart';
 import 'package:dailypay/utils/constants/constants.dart';
 import 'package:dailypay/widgets/widgets.dart';
@@ -65,7 +66,15 @@ class _OnboardPagerState extends State<OnboardPager> {
                         label: 'Sign Up',
                         color: Colors.white,
                 
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                child: SignUp(),
+                                type: PageTransitionType.rightToLeft
+                              )
+                            );
+                        },
                       ),
 
                       const SizedBox(
@@ -79,7 +88,9 @@ class _OnboardPagerState extends State<OnboardPager> {
                             Navigator.push(
                               context,
                               PageTransition(
-                                child: Login(),
+                                child: PinScreen(
+                                  label: 'Login',
+                                ),
                                 type: PageTransitionType.rightToLeft
                               )
                             );

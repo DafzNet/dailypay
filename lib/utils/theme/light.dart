@@ -21,7 +21,9 @@ ThemeData lightTheme = ThemeData(
         titleSmall: GoogleFonts.poppins(color: Colors.black),
       ),
 
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
+         centerTitle: true,
+        titleTextStyle: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),

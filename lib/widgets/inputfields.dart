@@ -10,15 +10,24 @@ class TextInputField extends StatefulWidget {
   final Color? bgColor;
   final TextEditingController? controller;
   final VoidCallback? onTap;
+  final Color? textColor;
+  final String? header;
+  final String? footer;
+  final Color? trailIconColor;
+
 
   const TextInputField(
     this.hint,
     {
     this.controller,
+    this.trailIconColor,
+    this.header,
     this.onTap,
+    this.textColor,
     this.buttonType=false,
-    this.password=true,
+    this.password=false,
     this.trailIcon,
+    this.footer,
     this.bgColor,
     super.key});
 
@@ -32,58 +41,101 @@ class _TextInputFieldState extends State<TextInputField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      height: 50,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Theme.of(context).primaryColor == Colors.black? Colors.white:Colors.black
-        ),
-        color: widget.bgColor??Colors.white
-      ),
-      child: Center(
-        child: Row(
-          children: [
-            SizedBox(
-              width: widget.buttonType || widget.password ? MediaQuery.of(context).size.width-75 : MediaQuery.of(context).size.width-46,
-              child: TextField(
-                controller: widget.controller,
-                obscureText: widget.password&&showPwd,
-                enabled: !widget.buttonType,
-                style: GoogleFonts.poppins(color: Theme.of(context).primaryColor, fontSize: 14),
-                decoration: InputDecoration.collapsed(
-                  hintText: widget.hint,
-                  hintStyle: GoogleFonts.poppins(color: Theme.of(context).primaryColor, fontSize: 16)
-                  
-                )
+    return Column(
+      children: [
+        if(widget.header != null)...[
+          Row(
+            children: [
+              Text(
+                widget.header!,
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 10,)
+        ],
+
+
+        GestureDetector(
+          onTap: () {
+            if (widget.buttonType) {
+              widget.onTap!();
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            height: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Theme.of(context).primaryColor == Colors.black? Colors.white:Colors.black
+              ),
+              color: widget.bgColor??Colors.white
+            ),
+            child: Center(
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: widget.buttonType || widget.password || widget.trailIcon != null? MediaQuery.of(context).size.width-75 : MediaQuery.of(context).size.width-46,
+                    child: TextField(
+                      controller: widget.controller,
+                      obscureText: widget.password&&showPwd,
+                      enabled: !widget.buttonType,
+                      style: GoogleFonts.poppins(color: widget.textColor ?? Theme.of(context).primaryColor, fontSize: 14),
+                      decoration: InputDecoration.collapsed(
+                        hintText: widget.hint,
+                        hintStyle: GoogleFonts.poppins(color: widget.textColor ?? Theme.of(context).primaryColor, fontSize: 16)
+                        
+                      )
+                    ),
+                  ),
+        
+                  if(widget.buttonType || widget.trailIcon != null)...[
+                    Icon(
+                      widget.trailIcon??MdiIcons.chevronDown,
+                      color: widget.trailIconColor?? Colors.black,
+                      size: 28,
+                    ),],
+        
+                  if(widget.password)...[
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showPwd = !showPwd;
+                        });
+                      },
+                      child: Icon(
+                        showPwd?MdiIcons.eyeOutline:MdiIcons.eyeOffOutline,
+                        color: Colors.black,
+                        size: 28,
+                      ),
+                    )
+                  ]
+                ],
               ),
             ),
-
-            if(widget.buttonType)...[
-              Icon(
-                widget.trailIcon??MdiIcons.chevronDown,
-                color: Colors.black,
-                size: 28,
-              ),],
-
-            if(widget.password)...[
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    showPwd = !showPwd;
-                  });
-                },
-                child: Icon(
-                  showPwd?MdiIcons.eyeOutline:MdiIcons.eyeOffOutline,
-                  color: Colors.black,
-                  size: 28,
-                ),
-              )
-            ]
-          ],
+          ),
         ),
-      ),
+
+        if(widget.footer != null)...[
+          SizedBox(height: 10,),
+          Row(
+            children: [
+              Text(
+                widget.footer!,
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+
+          
+        ],
+      ],
     );
   }
 }

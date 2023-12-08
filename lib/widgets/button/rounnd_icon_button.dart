@@ -3,7 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class RoundedIconButton extends StatefulWidget {
-  const RoundedIconButton({super.key});
+  final IconData icon;
+  final String? label;
+
+  final VoidCallback? onTap;
+
+  const RoundedIconButton({
+    required this.icon,
+    this.label,
+    this.onTap,
+    super.key});
 
   @override
   State<RoundedIconButton> createState() => _RoundedIconButtonState();
@@ -12,34 +21,37 @@ class RoundedIconButton extends StatefulWidget {
 class _RoundedIconButtonState extends State<RoundedIconButton> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 80,
-      child: Column(
-        children: [
-          ClipOval(
-            child: Container(
-              color: Colors.white,
-              height: 70,
-              width: 70,
-              child: Icon(
-                MdiIcons.cellphone,
-                size: 40,
-                color: dailiPayColor,
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: SizedBox(
+        width: 80,
+        child: Column(
+          children: [
+            ClipOval(
+              child: Container(
+                color: Colors.white,
+                height: 70,
+                width: 70,
+                child: Icon(
+                  widget.icon,
+                  size: 40,
+                  color: dailiPayColor,
+                ),
               ),
             ),
-          ),
-
-          SizedBox(height: 10,),
-
-          Center(
-            child: Text(
-              'Touch to Payment',
-
-              textAlign: TextAlign.center,
-            ),
-          )
-          
-        ],
+    
+            SizedBox(height: 10,),
+    
+            Center(
+              child: Text(
+                widget.label??'',
+    
+                textAlign: TextAlign.center,
+              ),
+            )
+            
+          ],
+        ),
       ),
     );
   }

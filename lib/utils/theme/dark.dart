@@ -20,8 +20,10 @@ ThemeData darkTheme = ThemeData(
         titleSmall: GoogleFonts.poppins(color: Colors.white),
       ),
 
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.black,
+        centerTitle: true,
+        titleTextStyle: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.white),
         scrolledUnderElevation: 0,
