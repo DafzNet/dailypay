@@ -1,3 +1,4 @@
+import 'package:dailypay/screens/account/account.dart';
 import 'package:dailypay/screens/fund/fund.dart';
 import 'package:dailypay/screens/payment/payment.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _AppBaseNavigationState extends State<AppBaseNavigation> {
     const HomeScreen(),
     FundWallet(),
     Payment(),
-    const Center(child: Text('4th Screen')),
+    AccountScreen(),
   ];
 
   int _currentIndex = 0;
@@ -130,7 +131,7 @@ class _AppBaseNavigationState extends State<AppBaseNavigation> {
               MdiIcons.dotsHorizontalCircle
             ),
       
-            label: 'More'
+            label: 'Account'
           ),
           
         ]

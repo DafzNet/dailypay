@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dailypay/controllers/currency_format.dart';
 import 'package:dailypay/screens/home/screens/history/summary.dart';
 import 'package:dailypay/utils/constants/constants.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class SendScan extends StatefulWidget {
@@ -16,6 +19,39 @@ class SendScan extends StatefulWidget {
 }
 
 class _SendScanState extends State<SendScan> {
+
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  Barcode? result;
+  QRViewController? controller;
+
+  // In order to get hot reload to work we need to pause the camera if the platform
+  // is android, or resume the camera if the platform is iOS.
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      controller!.pauseCamera();
+    } else if (Platform.isIOS) {
+      controller!.resumeCamera();
+    }
+  }
+
+
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        result = scanData;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,13 +73,14 @@ class _SendScanState extends State<SendScan> {
               ),
             ),
 
-            QrImageView(
-              data: '1234567890',
-              version: QrVersions.auto,
-              size: 200.0,
-              backgroundColor: Colors.white,
+            SizedBox(
+              width: 200,
+              height: 200,
+              child: QRView(
+                key: qrKey,
+                onQRViewCreated: _onQRViewCreated,
+              ),
             ),
-
 
             Center(
               child: TextButton(
@@ -68,7 +105,6 @@ class _SendScanState extends State<SendScan> {
 
             SizedBox(height: 40,)
             
-
           ],
         ),
       ),

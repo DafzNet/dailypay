@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(bodyPadding),
+        padding: const EdgeInsets.symmetric(horizontal: bodyPadding),
         child: Column(
           children: [
 
@@ -40,7 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     text: 'Welcome Shola',
                     style: TextStyle(
                       fontSize: 24,
-                      fontWeight: FontWeight.w700
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).primaryColorLight
                     ),
 
                     children: [
@@ -48,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         text: '\nWhat are you paying for today?',
                         style: TextStyle(
                           fontSize: 16,
+                          color: Theme.of(context).primaryColorLight
                           //fontWeight: FontWeight.w700
                         ),
                       )
@@ -56,32 +58,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   
                 ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    IconButton(
-                      onPressed: null,
-                      iconSize: 30,
-                      icon: Icon(
-                        MdiIcons.qrcode,
-                        color: dailiPayColor,
-                      )),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //   children: [
+                //     IconButton(
+                //       onPressed: null,
+                //       iconSize: 30,
+                //       icon: Icon(
+                //         MdiIcons.qrcode,
+                //         color: dailiPayColor,
+                //       )),
 
-                      IconButton(
-                      onPressed: (){
-                        Navigator.push(context, 
-                        PageTransition(
-                          child: NotificationScreen(), 
-                          type: PageTransitionType.fade)
-                        );
-                      },
-                      iconSize: 30,
-                      icon: Icon(
-                        MdiIcons.bell,
-                        color: Theme.of(context).primaryColorLight,
-                      ))
-                  ],
-                )
+                //       IconButton(
+                //       onPressed: (){
+                //         Navigator.push(context, 
+                //         PageTransition(
+                //           child: NotificationScreen(), 
+                //           type: PageTransitionType.fade)
+                //         );
+                //       },
+                //       iconSize: 30,
+                //       icon: Icon(
+                //         MdiIcons.bell,
+                //         color: Theme.of(context).primaryColorLight,
+                //       ))
+                //   ],
+                // )
               ],
             ),
 
@@ -114,15 +116,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           'DailiPay Wallet Balance',
                           style: TextStyle(
-                            fontSize: 18
+                            fontSize: 18,
                           ),
                         ),
 
                         Text(
-                          formatAsMoney(5000),
+                          formatAsMoney(500000000),
                           style: GoogleFonts.roboto(
                             fontSize: 40,
-                            fontWeight: FontWeight.bold
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
                           )
                         ),
 
@@ -144,6 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 DefaultButton(
                   icon: MdiIcons.send,
+                  iconColor: Theme.of(context).primaryColor,
                   color: Theme.of(context).primaryColorLight,
                   onTap: () {
                     Navigator.push(
@@ -156,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   textStyle: TextStyle(
                     fontSize: 16,
-                    color: Colors.black
+                    color: Theme.of(context).primaryColor
                   ),
                   size: Size(MediaQuery.of(context).size.width/2.2, 40),
                   label: 'Withdraw'),
@@ -168,89 +172,97 @@ class _HomeScreenState extends State<HomeScreen> {
                       backgroundColor: Colors.transparent,
                       context: context, 
                       builder: (context){
-                        return SizedBox(
-                          height: MediaQuery.of(context).size.height/1.5,
-                          child: Stack(
-
-                            children: [
-                              Positioned(
-                                top: 5,
-                                right: 1,
-                                child: IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  }, 
-                                  icon: Icon(
-                                    Icons.close, color: Colors.red,
-                                  ))
-                                ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  TextButton(
-                                    onPressed: (){
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(61, 255, 255, 255),
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30))
+                          ),
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height/1.5,
+                            child: Stack(
+                        
+                              children: [
+                                Positioned(
+                                  top: 5,
+                                  right: 1,
+                                  child: IconButton(
+                                    onPressed: () {
                                       Navigator.pop(context);
-                                      Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          child: SendScan(),
-                                          type: PageTransitionType.fade
-                                        )
-                                      );
-                                    },
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: Theme.of(context).primaryColorLight,
-                                      minimumSize: Size(MediaQuery.of(context).size.width-40, 50),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-                                    ),
-                                    child: Text(
-                                      'Send Money',
-                                      style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: 16
-                                      ),
-                                    ) 
+                                    }, 
+                                    icon: Icon(
+                                      Icons.close, color: Colors.red,
+                                    ))
                                   ),
-
-                                  SizedBox(height: 30,),
-
-
-                                  TextButton(
-                                    onPressed: (){
-                                      Navigator.pop(context);
-                                      Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          child: ReceiveScan(),
-                                          type: PageTransitionType.fade
-                                        )
-                                      );
-                                    },
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: Theme.of(context).primaryColorLight,
-                                      minimumSize: Size(MediaQuery.of(context).size.width-40, 50),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-                                    ),
-                                    child: Text(
-                                      'Receive Money',
-                                      style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: 16
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(),
+                                    TextButton(
+                                      onPressed: (){
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            child: SendScan(),
+                                            type: PageTransitionType.fade
+                                          )
+                                        );
+                                      },
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Theme.of(context).primaryColorLight,
+                                        minimumSize: Size(MediaQuery.of(context).size.width-40, 50),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                                       ),
-                                    ) 
-                                  )
-                                ],
-                              ),
-                            ],
+                                      child: Text(
+                                        'Send Money',
+                                        style: TextStyle(
+                                          color: Theme.of(context).primaryColor,
+                                          fontSize: 16
+                                        ),
+                                      ) 
+                                    ),
+                        
+                                    SizedBox(height: 30,),
+                        
+                        
+                                    TextButton(
+                                      onPressed: (){
+                                        Navigator.pop(context);
+                                        Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            child: ReceiveScan(),
+                                            type: PageTransitionType.fade
+                                          )
+                                        );
+                                      },
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Theme.of(context).primaryColorLight,
+                                        minimumSize: Size(MediaQuery.of(context).size.width-40, 50),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                                      ),
+                                      child: Text(
+                                        'Receive Money',
+                                        style: TextStyle(
+                                          color: Theme.of(context).primaryColor,
+                                          fontSize: 16
+                                        ),
+                                      ) 
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       }
                     );
                   },
                   icon: MdiIcons.scanner,
+                  iconColor: Theme.of(context).primaryColor,
                   textStyle: TextStyle(
                     fontSize: 16,
-                    color: Colors.black
+                    color: Theme.of(context).primaryColor
                   ),
 
                   color: Theme.of(context).primaryColorLight,
@@ -291,10 +303,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                 ),
-                RoundedIconButton(
-                  icon: MdiIcons.mapMarkerCircle,
-                  label: 'Agent Locations',
-                ),
+                // RoundedIconButton(
+                //   icon: MdiIcons.mapMarkerCircle,
+                //   label: 'Agent Locations',
+                // ),
               ],
             ),
 

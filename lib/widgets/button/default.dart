@@ -8,6 +8,7 @@ class DefaultButton extends StatefulWidget {
   final Color? textColor;
   final String label;
   final VoidCallback? onTap;
+  final bool active;
 
   final TextStyle? textStyle;
 
@@ -15,6 +16,7 @@ class DefaultButton extends StatefulWidget {
 
   const DefaultButton({
     this.icon,
+    this.active = true,
     this.textStyle,
     this.iconColor,
     this.onTap,
@@ -32,10 +34,10 @@ class _DefaultButtonState extends State<DefaultButton> {
   @override
   Widget build(BuildContext context) {
     return widget.icon == null ? TextButton(
-      onPressed: widget.onTap,
+      onPressed: widget.active? widget.onTap:null,
 
       style: TextButton.styleFrom(
-        backgroundColor: widget.color??dailiPayColor,
+        backgroundColor: !widget.active ? const Color.fromARGB(255, 231, 230, 230) : widget.color ??dailiPayColor,
         fixedSize: widget.size?? Size(MediaQuery.of(context).size.width, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
@@ -45,17 +47,17 @@ class _DefaultButtonState extends State<DefaultButton> {
 
         style: widget.textStyle?? TextStyle(
           fontSize: 18,
-          color: widget.textColor??Colors.black
+          color: !widget.active ? Color.fromARGB(174, 145, 144, 144): widget.textColor??Colors.black
         ),
       ),
 
       
     ):
     TextButton.icon(
-      onPressed: widget.onTap,
+      onPressed: widget.active? widget.onTap:null,
 
       style: TextButton.styleFrom(
-        backgroundColor: widget.color??dailiPayColor,
+        backgroundColor: !widget.active ? const Color.fromARGB(255, 231, 230, 230): widget.color ??dailiPayColor,
         fixedSize: widget.size?? Size(MediaQuery.of(context).size.width, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
@@ -70,7 +72,7 @@ class _DefaultButtonState extends State<DefaultButton> {
 
         style: widget.textStyle?? TextStyle(
           fontSize: 18,
-          color: widget.textColor??Colors.black
+          color: !widget.active ? Color.fromARGB(174, 145, 144, 144): widget.textColor??Colors.black
         ),
       ),
 

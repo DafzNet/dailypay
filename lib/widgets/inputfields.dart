@@ -15,12 +15,17 @@ class TextInputField extends StatefulWidget {
   final String? footer;
   final Color? trailIconColor;
 
+  final Function(String)? onChanged;
+  final TextInputType keyboardType;
+
 
   const TextInputField(
     this.hint,
     {
     this.controller,
+    this.onChanged,
     this.trailIconColor,
+    this.keyboardType = TextInputType.text,
     this.header,
     this.onTap,
     this.textColor,
@@ -82,12 +87,14 @@ class _TextInputFieldState extends State<TextInputField> {
                     width: widget.buttonType || widget.password || widget.trailIcon != null? MediaQuery.of(context).size.width-75 : MediaQuery.of(context).size.width-46,
                     child: TextField(
                       controller: widget.controller,
+                      keyboardType: widget.keyboardType,
+                      onChanged: widget.onChanged,
                       obscureText: widget.password&&showPwd,
                       enabled: !widget.buttonType,
-                      style: GoogleFonts.poppins(color: widget.textColor ?? Theme.of(context).primaryColor, fontSize: 14),
+                      style: GoogleFonts.poppins(color: widget.textColor ??Colors.black, fontSize: 14),
                       decoration: InputDecoration.collapsed(
                         hintText: widget.hint,
-                        hintStyle: GoogleFonts.poppins(color: widget.textColor ?? Theme.of(context).primaryColor, fontSize: 16)
+                        hintStyle: GoogleFonts.poppins(color: widget.textColor ?? Colors.black, fontSize: 16)
                         
                       )
                     ),

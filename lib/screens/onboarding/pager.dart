@@ -108,25 +108,28 @@ class _OnboardPagerState extends State<OnboardPager> {
             ),
           ),
 
-          SizedBox(
-            height: 20,
-            child: Center(
-              child: DotsIndicator(
-                dotsCount: 3,
-                position: _pos,
-                decorator: DotsDecorator(
-                  activeColor: dailiPayColor
+          Container(
+            color: Colors.black,
+            child: SizedBox(
+              height: 20,
+              child: Center(
+                child: DotsIndicator(
+                  dotsCount: 3,
+                  position: _pos,
+                  decorator: DotsDecorator(
+                    activeColor: dailiPayColor
+                  ),
+          
+                  onTap: (pos) {
+                    controller.jumpToPage(pos);
+                    _pos = pos;
+          
+                    setState(() {
+                      
+                    });
+                  },
+                  
                 ),
-
-                onTap: (pos) {
-                  controller.jumpToPage(pos);
-                  _pos = pos;
-
-                  setState(() {
-                    
-                  });
-                },
-                
               ),
             ),
           )
